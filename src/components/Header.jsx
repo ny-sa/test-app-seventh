@@ -5,7 +5,7 @@ import React from 'react';
 const header = () => {
   return (
     <header>
-      <h1>Keeper App</h1>;
+      <h1>Keeper App</h1>
     </header>
   )
 };
