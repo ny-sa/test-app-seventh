@@ -22,12 +22,31 @@ const noteSchema = new mongoose.Schema({
 
 const Note = mongoose.model('Note', noteSchema);
 
-
-
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/client/build/index.html`);
 });
 
+app.route('/api')
+  .get((req, res) => {
+    Note.find((err, allNotes) => {
+      if (!err) res.send(allNotes)
+    })
+  })
+  .post((req, res) => {
+    const newNote = new Note({
+      title: req.body.title,
+      content: req.body.content
+    });
+    newNote.save(err => {
+      if (!err) res.send({res: 'Successfully added to database.'});
+    });
+  })
+  .delete((req, res) => {
+    Note.deleteOne({_id: req.body._id}, err => {
+      if (!err) res.send({res: 'Successfully deleted from database.'});
+    })
+  }); 
+
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}.`);
-});
+})
