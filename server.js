@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 2020;
 
-app.use(express.static(`${__dirname}/client/build`));
+app.use(express.static(`${__dirname}/app/build`));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -23,7 +23,7 @@ const noteSchema = new mongoose.Schema({
 const Note = mongoose.model('Note', noteSchema);
 
 app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/client/build/index.html`);
+  res.sendFile(`${__dirname}/app/build/index.html`);
 });
 
 app.route('/api')
